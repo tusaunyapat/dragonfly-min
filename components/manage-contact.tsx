@@ -90,7 +90,7 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
     formData.append("name", updateName);
     formData.append("phone", updatePhone);
     formData.append("other", updateOther);
-
+    //end formData
     Swal.fire({
       title: "Are you sure?",
       text: "You can update it later!",
