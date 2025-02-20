@@ -2,7 +2,11 @@
 import { createClient } from "@/utils/supabase/client";
 import { categories, products } from "@/app/type";
 import { useEffect, useState } from "react";
-import { getCategories, getProducts } from "@/app/shelf/action";
+import {
+  getCategories,
+  getProducts,
+  selectSocialMedias,
+} from "@/app/shelf/action";
 import ProductCard from "./product-card";
 import { User } from "@supabase/supabase-js";
 import { RxCross2 } from "react-icons/rx";
@@ -17,6 +21,7 @@ export default function Shelf() {
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string[]>(
     []
   );
+  const [lineOa, setLineOa] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [categoriesMap, setCategoriesMap] = useState<{ [key: string]: string }>(
     {}
@@ -75,6 +80,20 @@ export default function Shelf() {
     );
   };
 
+  useEffect(() => {
+    const fetchSocialMedias = async () => {
+      const socialMediasFromServer = await selectSocialMedias();
+      const lineOaEntry = socialMediasFromServer.find(
+        (sm) => sm.platform === "line oa"
+      );
+
+      if (lineOaEntry) {
+        setLineOa(lineOaEntry.url); // Assuming the URL is stored in a `url` field
+      }
+    };
+    fetchSocialMedias();
+  }, []);
+
   // Apply filters
   useEffect(() => {
     let filtered = products;
@@ -121,7 +140,7 @@ export default function Shelf() {
             className="tooltip tooltip-open tooltip-left md:tooltip-top tooltip-warning "
             data-tip="สนใจสินค้า ติดต่อได้ที่"
           >
-            <a href="https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=YOUR_CHANNEL_ID&redirect_uri=YOUR_REDIRECT_URI&scope=profile%20openid">
+            <a href={lineOa}>
               <FaLine className="text-green-500 text-5xl md:text-7xl" />
             </a>
           </div>
@@ -129,7 +148,7 @@ export default function Shelf() {
       )}
 
       {/* Search Bar */}
-      <label className="input input-bordered flex items-center gap-2 w-3/5">
+      <label className="input input-bordered flex items-center gap-2 w-full md:w-3/5">
         <input
           type="text"
           className="grow "

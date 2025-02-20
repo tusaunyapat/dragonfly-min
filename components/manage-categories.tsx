@@ -13,8 +13,10 @@ import {
 
 export default function ManageCategories({
   categories,
+  setIsChanged,
 }: {
   categories: categories[];
+  setIsChanged: Function;
 }) {
   const [cname, setCname] = useState<string>("");
   const [category, setCategory] = useState<categories[]>(categories);
@@ -36,6 +38,7 @@ export default function ManageCategories({
   const handleAddNewCategory = () => {
     const formData = new FormData();
     setIsChange(true);
+    setIsChanged(true);
 
     formData.append("cname", cname);
 
@@ -47,15 +50,22 @@ export default function ManageCategories({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, add it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await addNewCategory(formData);
         setCname("");
         setIsChange(false);
+        setIsChanged(false);
         Swal.fire({
           title: "Added!",
           text: "Your category has been added.",
           icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
         });
       }
     });
@@ -72,6 +82,7 @@ export default function ManageCategories({
   const handleDeleteCategory = (id: string) => {
     const formData = new FormData();
     setIsChange(true);
+    setIsChanged(true);
 
     formData.append("id", id);
 
@@ -83,15 +94,22 @@ export default function ManageCategories({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteCategory(formData);
         setCname("");
         setIsChange(false);
+        setIsChanged(false);
         Swal.fire({
           title: "Deleted!",
           text: "Your category has been deleted.",
           icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
         });
       }
     });
@@ -113,6 +131,9 @@ export default function ManageCategories({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, update it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await updateCategoryName(formData);
@@ -123,6 +144,9 @@ export default function ManageCategories({
           title: "Updated!",
           text: "Your category name has been updated.",
           icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
         });
       }
     });
@@ -142,29 +166,26 @@ export default function ManageCategories({
         <p className="text-sm lg:text-xl font-bold mb-4">หมวดหมู่ที่มีอยู่</p>
 
         {/* Grid Layout for Categories */}
-        <div className="grid grid-cols-1  lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1  lg:grid-cols-2 gap-4">
           {category.map((category, index) => (
-            <div
-              key={category.id}
-              className="p-2 lg:p-4 border rounded-lg bg-white  w-full relative"
-            >
+            <div key={category.id} className="  bg-white  w-full relative ">
               {/* Inline Text and Buttons */}
-              <div className="grid grid-cols-4 items-center gap-4">
+              <div className="grid grid-cols-4 items-center gap-1 join bg-slate-200">
                 {/* Category Name */}
-                <h3 className="text-xs lg:text-lg font-semibold col-span-2">
+                <h3 className="text-xs lg:text-lg font-semibold col-span-2 px-2 join-item">
                   {category.cname}
                 </h3>
 
                 {/* Buttons */}
-                <div className="flex items-center gap-3 col-span-2 justify-end">
+                <div className="flex items-center col-span-2 justify-end join join-item">
                   <button
-                    className="text-red-500 hover:text-red-700 font-bold"
+                    className="col-span-1 btn btn-error btn-sm border-none  join-item bg-opacity-20"
                     onClick={() => handleDeleteCategory(category.id.toString())}
                   >
                     <RxCross1 />
                   </button>
                   <button
-                    className="px-2 py-1 text-warning"
+                    className="col-span-1 btn btn-warning btn-sm border-none  join-item bg-opacity-20"
                     onClick={() => handleClickupdate(category.id.toString())}
                   >
                     <MdModeEdit />

@@ -72,6 +72,9 @@ export default function UpdateProductForm({
       showCancelButton: true,
       confirmButtonText: "Yes, update it!",
       cancelButtonText: "No, cancel!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         const formData = new FormData();
@@ -98,7 +101,14 @@ export default function UpdateProductForm({
         onUpdate();
         closeModal();
 
-        Swal.fire("Updated!", "Product has been updated.", "success");
+        Swal.fire({
+          title: "Updated!",
+          text: "Product has been updated.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
   };
@@ -237,7 +247,7 @@ export default function UpdateProductForm({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="images" className="block">
-          รูปภาพสินค้้าที่ต้องการเพิ่ม
+          รูปภาพสินค้าที่ต้องการเพิ่ม
         </label>
         <input
           type="file"

@@ -32,6 +32,9 @@ export default function ProductCard({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteProduct(formData);
@@ -41,6 +44,9 @@ export default function ProductCard({
           title: "Deleted!",
           text: "Your category has been deleted.",
           icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+          },
         });
       }
     });
@@ -70,7 +76,7 @@ export default function ProductCard({
               >
                 <img
                   src={src}
-                  className="w-9/12 md:w-48 h-48 md:h-64 object-cover rounded-lg"
+                  className="w-auto h-48 md:h-56 object-contain rounded-lg"
                   alt={`Product image ${index + 1}`}
                 />
               </div>

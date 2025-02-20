@@ -4,7 +4,11 @@ import { getCategories } from "@/app/shelf/action";
 import { categories } from "@/app/type";
 import { useState, useEffect, useRef } from "react";
 import { addNewProduct } from "@/app/shelf/action";
-export default function AddProductForm() {
+export default function AddProductForm({
+  categoriesList,
+}: {
+  categoriesList: categories[];
+}) {
   const [pname, setPname] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [description, setDescription] = useState("");
@@ -13,15 +17,15 @@ export default function AddProductForm() {
   const [status, setStatus] = useState("");
   const [brand, setBrand] = useState("");
   const [images, setImages] = useState<File[]>([]);
-  const [cates, setCates] = useState<categories[]>([]);
+  // const [cates, setCates] = useState<categories[]>(categories);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const allCategory = await getCategories();
-      setCates(allCategory);
-    };
-    fetchCategories();
-  }, []);
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     const allCategory = await getCategories();
+  //     setCates(allCategory);
+  //   };
+  //   fetchCategories();
+  // }, []);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
@@ -78,11 +82,21 @@ export default function AddProductForm() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, add it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await addNewProduct(formData);
 
-        Swal.fire("Added!", "Your product has been updated.", "success");
+        Swal.fire({
+          title: "Added!",
+          text: "Your product has been added.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
 
@@ -149,7 +163,7 @@ export default function AddProductForm() {
           <div>
             <label className="block font-semibold">หมวดหมู่</label>
             <div className="flex flex-wrap gap-4">
-              {cates.map((cate) => (
+              {categoriesList.map((cate) => (
                 <label key={cate.id} className="flex items-center gap-2">
                   <input
                     type="checkbox"

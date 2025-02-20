@@ -14,7 +14,7 @@ export default function ProductDetail({
     <div className="flex flex-col md:flex-row w-full gap-8 max-h-[60vh] overflow-auto py-2">
       {/* Left Side - Image Carousel */}
       <div className="flex flex-col w-full">
-        <div className="carousel h-auto">
+        <div className="carousel h-auto ">
           {product.images.map((img, index) => (
             <div
               key={index}

@@ -48,6 +48,9 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, add it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await addNewContact(formData);
@@ -55,7 +58,14 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
         setPhone("");
         setOther("");
         setIsChange(false);
-        Swal.fire("Added!", "Your contact has been added.", "success");
+        Swal.fire({
+          title: "Added!",
+          text: "Contact has been added.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
   };
@@ -73,11 +83,21 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteContact(formData);
         setIsChange(false);
-        Swal.fire("Deleted!", "Your contact has been deleted.", "success");
+        Swal.fire({
+          title: "Deleted!",
+          text: "Contact has been deleted.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
   };
@@ -99,6 +119,9 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, update it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await updateContact(formData);
@@ -107,7 +130,14 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
         setUpdateOther("");
         setIsChange(false);
         setCollapseState((prev) => ({ ...prev, [id]: false }));
-        Swal.fire("Updated!", "Your contact has been updated.", "success");
+        Swal.fire({
+          title: "Updated!",
+          text: "Contact has been updated.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
   };
@@ -118,41 +148,51 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
         <p className="textsm lg:text-xl font-bold mb-4">
           ข้อมูลติดต่อที่มีอยู่
         </p>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {contactList.map((contact) => (
             <div
               key={contact.id}
-              className="p-4 border rounded-lg bg-white w-full relative flex flex-col justify-between"
+              className="border rounded-lg bg-white w-full relative flex flex-col justify-between"
             >
-              <h3 className="text-md lg:text-lg font-semibold">
-                {contact.name}
-              </h3>
-              <p className="text-sm lg:text-md">{contact.phone}</p>
-              <p className="text-sm lg:text-base overflow-auto">
-                {contact.other}
-              </p>
+              <div className="join join-vertical w-full">
+                {/* Name + Buttons (Horizontal Row) */}
+                <div className="flex justify-between items-center join join-item bg-slate-200 ">
+                  <h3 className="text-md lg:text-lg font-semibold join-item px-2 ">
+                    {contact.name}
+                  </h3>
+                  <div className="flex  join-item">
+                    <button
+                      className="btn btn-error btn-sm border-none bg-opacity-20 join-item"
+                      onClick={() => handleDeleteContact(contact.id)}
+                    >
+                      <RxCross1 />
+                    </button>
+                    <button
+                      className="btn btn-warning btn-sm border-none bg-opacity-20 join-item"
+                      onClick={() => {
+                        setUpdateName(contact.name ?? "");
+                        setUpdatePhone(contact.phone ?? "");
+                        setUpdateOther(contact.other ?? "");
+                        setCollapseState((prev) => ({
+                          ...prev,
+                          [contact.id]: true,
+                        }));
+                      }}
+                    >
+                      <MdModeEdit />
+                    </button>
+                  </div>
+                </div>
 
-              <div className="grid grid-cols-2 gap-2 py-1">
-                <button
-                  className="col-span-1 btn btn-error btn-sm btn-outline"
-                  onClick={() => handleDeleteContact(contact.id)}
-                >
-                  <RxCross1 />
-                </button>
-                <button
-                  className="px-2 py-1 col-span-1 btn btn-warning btn-sm btn-outline"
-                  onClick={() => {
-                    setUpdateName(contact.name ?? "");
-                    setUpdatePhone(contact.phone ?? "");
-                    setUpdateOther(contact.other ?? "");
-                    setCollapseState((prev) => ({
-                      ...prev,
-                      [contact.id]: true,
-                    }));
-                  }}
-                >
-                  <MdModeEdit />
-                </button>
+                {/* Phone & Other Info (Stacked Vertically) */}
+                <div className="join join-vertical w-full bg-white  rounded-b-lg p-2">
+                  <p className="text-sm lg:text-md join-item  py-1 ">
+                    {contact.phone}
+                  </p>
+                  <p className="text-sm lg:text-base join-item overflow-auto">
+                    {contact.other}
+                  </p>
+                </div>
               </div>
 
               {collapseState[contact.id] && (

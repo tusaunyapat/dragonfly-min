@@ -49,13 +49,23 @@ export default function ManageSocialMedia({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, add it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await addNewSocialMedia(formData);
         setPlatform("");
         setUrl("");
         setIsChange(false);
-        Swal.fire("Added!", "Your social media has been added.", "success");
+        Swal.fire({
+          title: "Added!",
+          text: "Social media has been added.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
   };
@@ -73,11 +83,21 @@ export default function ManageSocialMedia({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteSocialMedia(formData);
         setIsChange(false);
-        Swal.fire("Deleted!", "Your social media has been deleted.", "success");
+        Swal.fire({
+          title: "Deleted!",
+          text: "Social media has been delete.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
   };
@@ -98,6 +118,9 @@ export default function ManageSocialMedia({
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, update it!",
+      customClass: {
+        popup: "w-10/12 md:w-3/5 lg:w-2/5", // Apply Tailwind directly
+      },
     }).then(async (result) => {
       if (result.isConfirmed) {
         await updateSocialMedia(formData);
@@ -105,7 +128,14 @@ export default function ManageSocialMedia({
         setUpdateUrl("");
         setIsChange(false);
         setCollapseState((prev) => ({ ...prev, [id]: false }));
-        Swal.fire("Updated!", "Your social media has been updated.", "success");
+        Swal.fire({
+          title: "Updated!",
+          text: "Social media has been updated.",
+          icon: "success",
+          customClass: {
+            popup: "w-10/12 md:w-3/5 lg:w-2/5", // Adjust the width here
+          },
+        });
       }
     });
   };
@@ -116,36 +146,48 @@ export default function ManageSocialMedia({
         <p className="text-md lg:text-xl font-bold mb-4">
           Social media ที่มีอยู่
         </p>
-        <div className="grid grid-cols-1  gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2  gap-4">
           {socialMediaList.map((socialMedia) => (
             <div
               key={socialMedia.id}
-              className="p-4 border rounded-lg bg-white w-full relative flex flex-col justify-between"
+              className="border rounded-lg bg-white w-full relative flex flex-col justify-between"
             >
-              <h3 className="text-lg font-semibold text-md">
-                {socialMedia.platform}
-              </h3>
-              <p className="overflow-auto text-sm">{socialMedia.url}</p>
-              <div className="grid grid-cols-2 gap-2 py-1">
-                <button
-                  className="col-span-1 btn btn-error btn-sm btn-outline"
-                  onClick={() => handleDeleteSocialMedia(socialMedia.id)}
+              <div className="join join-vertical w-full">
+                {/* Top Row - Platform Name and Buttons */}
+                <div className="flex flex-row justify-between items-center bg-slate-200 join-item">
+                  <h3 className="text-lg font-semibold px-2">
+                    {socialMedia.platform}
+                  </h3>
+                  <div className="flex">
+                    <button
+                      className="btn btn-error btn-sm border-none bg-opacity-20 join-item"
+                      onClick={() => handleDeleteSocialMedia(socialMedia.id)}
+                    >
+                      <RxCross1 />
+                    </button>
+                    <button
+                      className="btn btn-warning btn-sm border-none bg-opacity-20 join-item"
+                      onClick={() => {
+                        setUpdatePlatform(socialMedia.platform ?? "");
+                        setUpdateUrl(socialMedia.url ?? "");
+                        setCollapseState((prev) => ({
+                          ...prev,
+                          [socialMedia.id]: true,
+                        }));
+                      }}
+                    >
+                      <MdModeEdit />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bottom - URL */}
+                <a
+                  href={socialMedia.url}
+                  className="text-sm  p-2 join-item break-all hover:text-warning "
                 >
-                  <RxCross1 />
-                </button>
-                <button
-                  className="px-2 py-1 col-span-1 btn btn-warning btn-sm btn-outline"
-                  onClick={() => {
-                    setUpdatePlatform(socialMedia.platform ?? "");
-                    setUpdateUrl(socialMedia.url ?? "");
-                    setCollapseState((prev) => ({
-                      ...prev,
-                      [socialMedia.id]: true,
-                    }));
-                  }}
-                >
-                  <MdModeEdit />
-                </button>
+                  {socialMedia.url}
+                </a>
               </div>
 
               {collapseState[socialMedia.id] && (

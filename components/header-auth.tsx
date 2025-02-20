@@ -49,13 +49,24 @@ export default async function AuthButton() {
     );
   }
   return user ? (
-    <div className="flex items-center gap-4 ">
-      Hey, {user.email}!
-      <form action={signOutAction}>
-        <Button type="submit" variant={"outline"}>
-          Sign out
+    <div className="flex flex-col items-center gap-4 ">
+      <p> Hey, {user.email}!</p>
+      <div className="flex flex-row justify-start gap-2 w-full">
+        <form action={signOutAction}>
+          <Button
+            type="submit"
+            variant={"outline"}
+            className="text-slate-500 hover:text-warning"
+          >
+            Sign out
+          </Button>
+        </form>
+        <Button asChild size="sm" variant={"default"}>
+          <Link href="/sign-up" className="hover:text-warning">
+            Sign up
+          </Link>
         </Button>
-      </form>
+      </div>
     </div>
   ) : (
     <div className="flex gap-2 ">
@@ -64,9 +75,11 @@ export default async function AuthButton() {
           Sign in
         </Link>
       </Button>
-      <Button asChild size="sm" variant={"default"}>
-        <Link href="/sign-up">Sign up</Link>
-      </Button>
+      {user && (
+        <Button asChild size="sm" variant={"default"}>
+          <Link href="/sign-up">Sign up</Link>
+        </Button>
+      )}
     </div>
   );
 }
