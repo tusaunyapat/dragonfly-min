@@ -115,7 +115,7 @@ export default function Shelf() {
         {hasAuthenticated ? "สินค้าในคลัง" : "สินค้าของเรา"}
       </h2>
       {!hasAuthenticated && (
-        <div className="flex fixed bottom-0 right-0 p-6 md:p-16 z-[99999] rounded-full ">
+        <div className="flex fixed bottom-0 right-0 p-6 md:p-16  rounded-full ">
           <div
             className="tooltip tooltip-open tooltip-left md:tooltip-top tooltip-warning "
             data-tip="สนใจสินค้า ติดต่อได้ที่"

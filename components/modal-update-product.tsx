@@ -107,7 +107,7 @@ export default function UpdateProductForm({
     <div className="space-y-4 p-4 h-[70vh]">
       <div className="flex flex-col gap-2">
         <label htmlFor="pname" className="block font-bold text-md">
-          Product Name
+          ชื่อสินค้า
         </label>
         <input
           type="text"
@@ -142,7 +142,7 @@ export default function UpdateProductForm({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="description" className="block font-bold text-md">
-          Description
+          คำอธิบาย
         </label>
         <textarea
           id="description"
@@ -155,7 +155,7 @@ export default function UpdateProductForm({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="detail" className="block font-bold text-md">
-          Detail
+          รายละเอียด
         </label>
         <textarea
           id="detail"
@@ -168,7 +168,7 @@ export default function UpdateProductForm({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="price" className="block font-bold text-md">
-          Price
+          ราคา
         </label>
         <input
           type="number"
@@ -182,7 +182,7 @@ export default function UpdateProductForm({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="status" className="block font-bold text-md">
-          Status
+          สถานะ
         </label>
         <select
           id="status"
@@ -199,7 +199,7 @@ export default function UpdateProductForm({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="brand" className="block font-bold text-md">
-          Brand
+          แบรนด์
         </label>
         <input
           type="text"
@@ -212,7 +212,9 @@ export default function UpdateProductForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="block font-bold text-md">Current Images</label>
+        <label className="block font-bold text-md">
+          รูปภาพสินค้้าที่มีอยู่
+        </label>
         <div className="flex flex-wrap gap-2">
           {currentImages.map((image, index) => (
             <div key={index} className="relative w-32">
@@ -226,7 +228,7 @@ export default function UpdateProductForm({
                 className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 text-xs"
                 onClick={() => handleRemoveCurrentImage(image)}
               >
-                Remove
+                ลบ
               </button>
             </div>
           ))}
@@ -235,7 +237,7 @@ export default function UpdateProductForm({
 
       <div className="flex flex-col gap-2">
         <label htmlFor="images" className="block">
-          Upload New Images
+          รูปภาพสินค้้าที่ต้องการเพิ่ม
         </label>
         <input
           type="file"
@@ -269,14 +271,14 @@ export default function UpdateProductForm({
           type="button"
           className="btn btn-primary  grid-col-1 btn-outline modal-action items-center justify-center"
         >
-          Cancel
+          ยกเลิก
         </button>
         <button
           onClick={handleUpdateProduct}
           type="button"
           className="btn btn-primary   grid-col-1 modal-action items-center justify-center"
         >
-          Update Product
+          แก้ไข
         </button>
       </div>
     </div>

@@ -16,3 +16,18 @@ export interface products {
   updated_at: string;
   images: string[];
 }
+
+export interface contacts {
+  id: string;
+  name: string;
+  phone: string;
+  other: string;
+  created_at: string;
+}
+
+export interface social_medias {
+  id: string;
+  platform: string;
+  url: string;
+  created_at: string;
+}

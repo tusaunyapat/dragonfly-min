@@ -72,10 +72,11 @@ export default function AddProductForm() {
     await addNewProduct(formData);
 
     Swal.fire({
-      title: "The Internet?",
-      text: "That thing is still around?",
+      title: "เพิ่มสินค้า",
+      text: "คุณต้องการเพิ่มสินค้านี้หรือไม่?",
       icon: "question",
     });
+
     resetForm();
   };
 
@@ -90,7 +91,7 @@ export default function AddProductForm() {
           {/* Product Name */}
           <div>
             <label htmlFor="pname" className="block font-semibold">
-              Product Name
+              ชื่อสินค้า
             </label>
             <input
               type="text"
@@ -105,7 +106,7 @@ export default function AddProductForm() {
           {/* Description */}
           <div>
             <label htmlFor="description" className="block font-semibold">
-              Description
+              คำอธิบาย
             </label>
             <textarea
               id="description"
@@ -119,7 +120,7 @@ export default function AddProductForm() {
           {/* Detail */}
           <div>
             <label htmlFor="detail" className="block font-semibold">
-              Detail
+              รายละเอียด
             </label>
             <textarea
               id="detail"
@@ -135,7 +136,7 @@ export default function AddProductForm() {
         <div className="space-y-6">
           {/* Categories */}
           <div>
-            <label className="block font-semibold">Categories</label>
+            <label className="block font-semibold">หมวดหมู่</label>
             <div className="flex flex-wrap gap-4">
               {cates.map((cate) => (
                 <label key={cate.id} className="flex items-center gap-2">
@@ -155,7 +156,7 @@ export default function AddProductForm() {
           {/* Price */}
           <div>
             <label htmlFor="price" className="block font-semibold">
-              Price
+              ราคา
             </label>
             <input
               type="number"
@@ -170,7 +171,7 @@ export default function AddProductForm() {
           {/* Status */}
           <div>
             <label htmlFor="status" className="block font-semibold">
-              Status
+              สถานะ
             </label>
             <select
               id="status"
@@ -179,17 +180,17 @@ export default function AddProductForm() {
               className="select select-bordered w-full"
               required
             >
-              <option value="">Select Status</option>
-              <option value="inactive">inactive</option>
-              <option value="active">active</option>
-              <option value="draft">draft</option>
+              <option value="">เลือกสถานะ</option>
+              <option value="inactive">เก็บไว้ในคลัง</option>
+              <option value="active">แสดง</option>
+              <option value="draft">ร่าง</option>
             </select>
           </div>
 
           {/* Brand */}
           <div>
             <label htmlFor="brand" className="block font-semibold">
-              Brand
+              แบรนด์
             </label>
             <input
               type="text"
@@ -204,7 +205,7 @@ export default function AddProductForm() {
           {/* Product Images */}
           <div>
             <label htmlFor="images" className="block font-semibold">
-              Product Images
+              รูปภาพสินค้า
             </label>
             <input
               type="file"
@@ -218,7 +219,7 @@ export default function AddProductForm() {
             {/* Image Preview */}
             {images.length > 0 && (
               <div className="mt-4 bg-gray-100 p-4 rounded-lg shadow-sm">
-                <p className="text-sm font-semibold mb-2">Selected Images:</p>
+                <p className="text-sm font-semibold mb-2">เลือกรูปภาพ</p>
                 <div className="grid grid-cols-3 gap-4">
                   {images.map((image, index) => (
                     <div key={index} className="relative">
@@ -243,14 +244,14 @@ export default function AddProductForm() {
           type="button"
           className="btn btn-primary btn-outline w-full col-span-1"
         >
-          Cancel
+          ยกเลิก
         </button>
         <button
           onClick={handleAddProduct}
           type="button"
           className="btn btn-primary w-full col-span-1"
         >
-          Add Product
+          เพิ่มสินค้า
         </button>
       </div>
     </div>

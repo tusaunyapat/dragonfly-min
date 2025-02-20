@@ -176,7 +176,7 @@ export default function ManageCategories({
               {collapseState[category.id.toString()] && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                   <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                    <h2 className="text-xl font-bold mb-3">Update Category</h2>
+                    <h2 className="text-xl font-bold mb-3">แก้ไขหมวดหมู่</h2>
                     <input
                       type="text"
                       name="updateCname"
@@ -195,7 +195,7 @@ export default function ManageCategories({
                           }))
                         }
                       >
-                        Cancel
+                        ยกเลิก
                       </button>
                       <button
                         className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
@@ -203,7 +203,7 @@ export default function ManageCategories({
                           handleClickupdate(category.id.toString())
                         }
                       >
-                        Update
+                        แก้ไข
                       </button>
                     </div>
                   </div>
@@ -229,7 +229,7 @@ export default function ManageCategories({
           className="btn btn-outline btn-warning mt-3"
           onClick={handleAddNewCategory}
         >
-          Add
+          เพิ่มหมวดหมู่
         </button>
       </div>
     </div>

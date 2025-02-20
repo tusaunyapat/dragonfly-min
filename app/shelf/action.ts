@@ -75,71 +75,6 @@ export const deleteCategory = async (formData: FormData) => {
   return data;
 };
 
-// export const addGameAction = async (formData: FormData) => {
-//   const boardgame_name = formData.get("boardgame_name")?.toString();
-//   const description = formData.get("description")?.toString();
-//   const bg_picture = formData.get("bg_picture") as File;
-//   const price = formData.get("price")?.toString();
-//   const boardgame_type = formData.getAll("boardgame_type");
-//   const quantity = formData.get("quantity")?.toString();
-//   const supabase = await createClient();
-
-//   const fileName = randomUUID();
-
-//   let addGameError;
-
-//   if (
-//     bg_picture &&
-//     bg_picture.toString() != "undefined" &&
-//     bg_picture != undefined
-//   ) {
-//     const { error: uploadError } = await supabase.storage
-//       .from("boardgame_pictures")
-//       .upload(fileName, bg_picture);
-//     if (uploadError) {
-//       console.log("Upload file error.", uploadError);
-//       return;
-//     }
-
-//     console.log("Upload success.");
-
-//     const publicBoardgamePictureURL = supabase.storage
-//       .from("boardgame_pictures")
-//       .getPublicUrl(fileName).data.publicUrl;
-
-//     const { data, error } = await supabase.from("boardgames").insert([
-//       {
-//         bg_name: boardgame_name,
-//         description: description,
-//         bg_picture: publicBoardgamePictureURL,
-//         price: price,
-//         types: boardgame_type,
-//         quantity: quantity,
-//       },
-//     ]);
-//     addGameError = error;
-//   } else {
-//     const { data, error } = await supabase.from("boardgames").insert([
-//       {
-//         bg_name: boardgame_name,
-//         description: description,
-//         price: price,
-//         types: boardgame_type,
-//         quantity: quantity,
-//       },
-//     ]);
-//     addGameError = error;
-//   }
-
-//   if (addGameError) {
-//     encodedRedirect("error", "/home", "Failed to add boardgame.");
-//   }
-
-//   // return encodedRedirect("success", "/home", "Add boardgame success.");
-//   revalidatePath("/");
-//   return;
-// };
-
 export const addNewProduct = async (formData: FormData) => {
   console.log("From action");
   const imageUrls: string[] = []; // Array to store uploaded image URLs
@@ -304,5 +239,160 @@ export const deleteProduct = async (formData: FormData) => {
   }
 
   console.log("Category deleted:", data);
+  return data;
+};
+
+export const selectContact = async () => {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.from("contacts").select("*");
+  if (error) {
+    throw new Error("Failed to fetch boardgame types");
+    console.log(error);
+  }
+
+  return data;
+};
+
+export const addNewContact = async (formData: FormData) => {
+  const name = formData.get("name")?.toString();
+  const phone = formData.get("phone")?.toString();
+  const other = formData.get("other")?.toString();
+  if (!name) {
+    throw new Error("Category name is required"); // Ensure an ID is provided
+  }
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("contacts")
+    .insert([{ name: name, phone: phone, other: other }]);
+
+  revalidatePath("/");
+  return;
+};
+
+export const deleteContact = async (formData: FormData) => {
+  const id = formData.get("id");
+  if (!id) {
+    throw new Error("Contact ID is required"); // Ensure an ID is provided
+  }
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.from("contacts").delete().eq("id", id); // Assuming the column name for the category ID is 'id'
+
+  if (error) {
+    throw new Error(error.message); // Handle any error from the delete operation
+  }
+
+  console.log("Contact deleted:", data);
+  return data;
+};
+
+export const updateContact = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const name = formData.get("name") as string;
+  const phone = formData.get("phone") as string;
+  const other = formData.get("other") as string;
+
+  if (!id) {
+    throw new Error("Contact ID is required");
+  }
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("contacts")
+    .update([
+      {
+        name: name,
+        phone: phone,
+        other: other,
+      },
+    ])
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  console.log("Contact updated:", data);
+  return data;
+};
+
+export const selectSocialMedias = async () => {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.from("social_medias").select("*");
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+export const addNewSocialMedia = async (formData: FormData) => {
+  const platform = formData.get("platform")?.toString();
+  const url = formData.get("url")?.toString();
+  if (!platform) {
+    throw new Error("social media name is required"); // Ensure an ID is provided
+  }
+
+  if (!url) {
+    throw new Error("social media url is required"); // Ensure an ID is provided
+  }
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("social_medias")
+    .insert([{ platform: platform, url: url }]);
+
+  revalidatePath("/");
+  return;
+};
+
+export const updateSocialMedia = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+  const platform = formData.get("platform") as string;
+  const url = formData.get("url") as string;
+
+  if (!id) {
+    throw new Error("Social Media ID is required");
+  }
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("social_medias")
+    .update([{ platform: platform, url: url }])
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  console.log("Social Media updated:", data);
+  return data;
+};
+
+export const deleteSocialMedia = async (formData: FormData) => {
+  const id = formData.get("id") as string;
+
+  if (!id) {
+    throw new Error("Social Media ID is required");
+  }
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("social_medias")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  console.log("Social Media deleted:", data);
   return data;
 };
