@@ -69,12 +69,21 @@ export default function AddProductForm() {
 
     console.log("Click add product", formData);
     // Call your addProduct function here
-    await addNewProduct(formData);
 
     Swal.fire({
-      title: "เพิ่มสินค้า",
-      text: "คุณต้องการเพิ่มสินค้านี้หรือไม่?",
-      icon: "question",
+      title: "Are you sure?",
+      text: "You can update it later!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, add it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await addNewProduct(formData);
+
+        Swal.fire("Added!", "Your product has been updated.", "success");
+      }
     });
 
     resetForm();
@@ -83,9 +92,11 @@ export default function AddProductForm() {
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg w-10/12">
       {/* Title */}
-      <h2 className="text-2xl font-bold text-left mb-6">เพิ่มสินค้าใหม่</h2>
+      <h2 className="text-md lg:text-xl font-bold text-left mb-6">
+        เพิ่มสินค้าใหม่
+      </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm lg:text-md">
         {/* Left Side */}
         <div className="space-y-6">
           {/* Product Name */}

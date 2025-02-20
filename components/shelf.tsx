@@ -7,6 +7,7 @@ import ProductCard from "./product-card";
 import { User } from "@supabase/supabase-js";
 import { RxCross2 } from "react-icons/rx";
 import { FaLine } from "react-icons/fa6";
+import { FaBoxOpen } from "react-icons/fa";
 export default function Shelf() {
   const [categories, setCategories] = useState<categories[]>([]);
   const [products, setProducts] = useState<products[]>([]);
@@ -146,11 +147,10 @@ export default function Shelf() {
       <div className="flex flex-col md:flex-row  w-full justify-center items-center ">
         <div className="flex flex-col md:flex-row w-full">
           <div className="flex flex-col md:flex-row w-full ">
-            {/* selection */}
-            <div className="dropdown w-96 md:w-64">
+            <div className="dropdown w-64 md:w-96 relative">
               <label
                 tabIndex={0}
-                className="btn m-1 btn-outline btn-warning btn-sm text-md "
+                className="btn btn-outline btn-warning btn-sm text-sm mb-2"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
@@ -158,16 +158,17 @@ export default function Shelf() {
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                className="dropdown-content absolute left-0 menu p-2 shadow bg-base-100 rounded-box w-52 z-[9999]"
               >
                 {categories.map((cate, index) => (
                   <li
                     key={index}
-                    className={`cursor-pointer transition-all  rounded-md py-2 px-4 ${
-                      selectedCateFilter.includes(cate.id.toString())
-                        ? "bg-accent bg-opacity-20"
-                        : "bg-white"
-                    }`}
+                    className={`cursor-pointer transition-all rounded-md py-2 px-4 
+        ${
+          selectedCateFilter.includes(cate.id.toString())
+            ? "bg-warning bg-opacity-30 hover:bg-opacity-50"
+            : "bg-white hover:bg-gray-100"
+        }`}
                     onClick={() => toggleCategoryFilter(cate.id.toString())}
                   >
                     {cate.cname}
@@ -175,7 +176,7 @@ export default function Shelf() {
                 ))}
               </ul>
             </div>
-            {/* display */}
+
             <div className="flex flex-row w-full items-center py-1">
               {selectedCateFilter.length > 0 && (
                 <div className="flex flex-row gap-2 flex-wrap">
@@ -198,12 +199,11 @@ export default function Shelf() {
           </div>
           {hasAuthenticated && (
             <div className="flex flex-row w-full ">
-              {/* Status Selection */}
-              <div className="flex flex-col md:flex-row w-full justify-start items-center">
-                <div className="dropdown w-4/12 ">
+              <div className="flex flex-col md:flex-row w-full justify-start items-start">
+                <div className="dropdown w-64 lg:w-96 ">
                   <label
                     tabIndex={0}
-                    className="btn m-1 btn-outline btn-warning text-lg px-4"
+                    className="btn m-1 btn-outline btn-sm btn-warning text-sm px-4"
                     aria-haspopup="true"
                     aria-expanded={
                       selectedStatusFilter.length > 0 ? "true" : "false"
@@ -215,7 +215,7 @@ export default function Shelf() {
                   <ul
                     id="status-dropdown-menu"
                     tabIndex={0}
-                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[9999]"
                   >
                     {["active", "draft", "inactive"].map((status, index) => (
                       <li
@@ -236,20 +236,20 @@ export default function Shelf() {
                   {selectedStatusFilter.map((status, index) => (
                     <button
                       key={index}
-                      className={`text-xl btn btn-base-100 font-normal flex flex-row bg-opacity-20 border-none ${
+                      className={`text-xl btn btn-sm m-1 btn-base-100 font-normal flex flex-row bg-opacity-20 border-none ${
                         status === "active"
                           ? "btn-success"
                           : status === "inactive"
                             ? "btn-error"
                             : "btn-accent"
                       }`}
-                      onClick={() => toggleCategoryFilter(status)}
+                      onClick={() => toggleStatusFilter(status)}
                     >
                       <p
                         key={index}
                         className={`text-sm rounded-md text-primary bg-opacity-20 `}
                       >
-                        {status} {/* Display status name */}
+                        {status}
                       </p>
                       <p className="text-sm">
                         {" "}
@@ -267,16 +267,23 @@ export default function Shelf() {
       </div>
 
       {/* Product List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-        {filteredProducts.map((product, index) => (
-          <ProductCard
-            product={product}
-            key={index}
-            isAdmin={hasAuthenticated}
-            categoriesMap={categoriesMap}
-            onUpdate={fetchProducts}
-          />
-        ))}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <ProductCard
+              product={product}
+              key={product.id || product.pname} // Use a unique key
+              isAdmin={hasAuthenticated}
+              categoriesMap={categoriesMap}
+              onUpdate={fetchProducts}
+            />
+          ))
+        ) : (
+          <div className="flex flex-col items-center justify-center text-gray-500 mt-8">
+            <FaBoxOpen className="text-4xl mb-2" />
+            <p className="text-lg">ไม่มีสินค้าที่พบ</p>
+          </div>
+        )}
       </div>
     </div>
   );

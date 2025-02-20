@@ -73,7 +73,7 @@ export default function AddProductForm() {
   };
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4 p-4 ">
       <div>
         <label htmlFor="pname" className="block">
           ชื่อสินค้า

@@ -136,22 +136,22 @@ export default function ManageCategories({
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10  w-10/12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-10  w-10/12">
       {/* Left Side: Category List */}
       <div className="rounded-lg shadow-md p-4">
-        <p className="text-xl font-bold mb-4">หมวดหมู่ที่มีอยู่</p>
+        <p className="text-sm lg:text-xl font-bold mb-4">หมวดหมู่ที่มีอยู่</p>
 
         {/* Grid Layout for Categories */}
         <div className="grid grid-cols-1  lg:grid-cols-3 gap-4">
           {category.map((category, index) => (
             <div
               key={category.id}
-              className="p-4 border rounded-lg bg-white  w-full relative"
+              className="p-2 lg:p-4 border rounded-lg bg-white  w-full relative"
             >
               {/* Inline Text and Buttons */}
               <div className="grid grid-cols-4 items-center gap-4">
                 {/* Category Name */}
-                <h3 className="text-lg font-semibold col-span-2">
+                <h3 className="text-xs lg:text-lg font-semibold col-span-2">
                   {category.cname}
                 </h3>
 
@@ -175,8 +175,10 @@ export default function ManageCategories({
               {/* Overlay Input for Editing */}
               {collapseState[category.id.toString()] && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                  <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                    <h2 className="text-xl font-bold mb-3">แก้ไขหมวดหมู่</h2>
+                  <div className="bg-white p-6 rounded-lg shadow-lg w-4/5 lg:w-96">
+                    <h2 className="text-md lg:text-xl font-bold mb-3">
+                      แก้ไขหมวดหมู่
+                    </h2>
                     <input
                       type="text"
                       name="updateCname"
@@ -187,7 +189,7 @@ export default function ManageCategories({
                     />
                     <div className="flex justify-end mt-4 gap-3">
                       <button
-                        className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                        className="px-2 lg:px-4 py-1 lg:py-2 text-sm bg-gray-300 rounded hover:bg-gray-400"
                         onClick={() =>
                           setCollapseState((prev) => ({
                             ...prev,
@@ -198,7 +200,7 @@ export default function ManageCategories({
                         ยกเลิก
                       </button>
                       <button
-                        className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                        className="px-2 lg:px-4 py-1 lg:py-2 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
                         onClick={() =>
                           handleClickupdate(category.id.toString())
                         }
@@ -216,7 +218,7 @@ export default function ManageCategories({
 
       {/* Right Side: Add New Category */}
       <div className="flex flex-col p-6 bg-warning bg-opacity-10 rounded-lg shadow-md">
-        <p className="text-xl font-bold mb-4">เพิ่มหมวดหมู่ใหม่</p>
+        <p className="text-sm lg:text-xl font-bold mb-4">เพิ่มหมวดหมู่ใหม่</p>
         <input
           type="text"
           name="cname"

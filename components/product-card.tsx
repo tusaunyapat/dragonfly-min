@@ -58,16 +58,19 @@ export default function ProductCard({
     <div className="product-list">
       <div
         key={product.id}
-        className="product-card border p-4 rounded-lg shadow-md flex"
+        className="product-card border p-2 md:p-4 rounded-lg shadow-md flex flex-col md:flex-row"
       >
         {/* Image Carousel */}
-        <div className="carousel product-image w-1/3">
+        <div className="carousel product-image w-full md:w-1/3 flex justify-center items-center">
           {product.images.length > 0 ? (
             product.images.map((src, index) => (
-              <div className="carousel-item w-full" key={index}>
+              <div
+                className="carousel-item w-full flex justify-center"
+                key={index}
+              >
                 <img
                   src={src}
-                  className="w-48 h-64 object-cover rounded-lg"
+                  className="w-9/12 md:w-48 h-48 md:h-64 object-cover rounded-lg"
                   alt={`Product image ${index + 1}`}
                 />
               </div>
@@ -78,17 +81,17 @@ export default function ProductCard({
         </div>
 
         {/* Product Details */}
-        <div className="w-2/3 flex flex-col justify-between ">
+        <div className="w-full md:w-2/3 flex flex-col justify-between ">
           <div className="product-details px-4">
-            <div className="flex flex-row w-full justify-between">
+            <div className="flex flex-row w-full justify-between items-center pt-2 md:pt-0">
               <div className="flex flex-row gap-4 items-center">
-                <h3 className="product-name text-xl font-bold">
+                <h3 className="product-name text-md md:text-xl font-bold">
                   {product.pname}
                 </h3>
 
                 {isAdmin && (
                   <p
-                    className={`badge badge-outline product-status text-sm ${
+                    className={`badge badge-outline product-status text-xs md:text-sm ${
                       product.status === "inactive"
                         ? "badge-error"
                         : product.status === "active"
@@ -100,7 +103,7 @@ export default function ProductCard({
                   </p>
                 )}
               </div>
-              <p className="product-price text-warning font-semibold text-2xl">
+              <p className="product-price text-warning font-semibold text-md md:text-2xl">
                 {product.price} ฿
               </p>
             </div>
@@ -113,10 +116,10 @@ export default function ProductCard({
           </div>
 
           {/* Admin Buttons */}
-          <div className="flex flex-row gap-2 justify-end w-full ">
+          <div className="flex flex-row gap-2 justify-center md:justify-end w-full ">
             <div className="flex gap-2 mt-4">
               <button
-                className="btn btn-outline btn-warning"
+                className="btn btn-outline btn-warning btn-sm "
                 onClick={openModalDetail}
               >
                 see detail
@@ -124,14 +127,14 @@ export default function ProductCard({
               {isAdmin && (
                 <button
                   onClick={() => handleDeleteProduct(product.id.toString())}
-                  className="btn btn-outline btn-error text-white px-4 py-2 rounded-lg"
+                  className="btn btn-outline  btn-sm btn-error text-white px-4 py-2 rounded-lg"
                 >
                   Delete
                 </button>
               )}
 
               {isAdmin && (
-                <button className="btn btn-outline" onClick={openModal}>
+                <button className="btn btn-outline btn-sm " onClick={openModal}>
                   Update
                 </button>
               )}
@@ -147,7 +150,7 @@ export default function ProductCard({
         {/* Modal 1: Update Product */}
         {isModalOpen && (
           <dialog id="my_modal_4" className="modal" open>
-            <div className="modal-box w-11/12 max-w-xl">
+            <div className="modal-box w-[80vw] max-w-5xl">
               <UpdateProductForm
                 product={product}
                 onUpdate={onUpdate}
@@ -160,7 +163,7 @@ export default function ProductCard({
         {/* Modal 2: Product Detail */}
         {isModalDetailOpen && (
           <dialog id="my_modal_4" className="modal" open>
-            <div className="modal-box w-11/12 max-w-5xl">
+            <div className="modal-box w-[80vw] max-w-5xl">
               <ProductDetail product={product} categoriesMap={categoriesMap} />
               <div className="modal-action">
                 <form method="dialog">

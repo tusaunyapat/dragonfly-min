@@ -115,16 +115,23 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-10/12">
       <div className="rounded-lg shadow-md p-4">
-        <p className="text-xl font-bold mb-4">ข้อมูลติดต่อที่มีอยู่</p>
+        <p className="textsm lg:text-xl font-bold mb-4">
+          ข้อมูลติดต่อที่มีอยู่
+        </p>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {contactList.map((contact) => (
             <div
               key={contact.id}
               className="p-4 border rounded-lg bg-white w-full relative flex flex-col justify-between"
             >
-              <h3 className="text-lg font-semibold">{contact.name}</h3>
-              <p>{contact.phone}</p>
-              <p>{contact.other}</p>
+              <h3 className="text-md lg:text-lg font-semibold">
+                {contact.name}
+              </h3>
+              <p className="text-sm lg:text-md">{contact.phone}</p>
+              <p className="text-sm lg:text-base overflow-auto">
+                {contact.other}
+              </p>
+
               <div className="grid grid-cols-2 gap-2 py-1">
                 <button
                   className="col-span-1 btn btn-error btn-sm btn-outline"
@@ -150,8 +157,10 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
 
               {collapseState[contact.id] && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                  <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                    <h2 className="text-xl font-bold mb-3">แก้ไขข้อมูล</h2>
+                  <div className="bg-white p-6 rounded-lg shadow-lg w-4/5 lg:w-96">
+                    <h2 className="text-md lg:text-xl font-bold mb-3">
+                      แก้ไขข้อมูล
+                    </h2>
                     <input
                       type="text"
                       value={updateName}
@@ -175,7 +184,7 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
                     />
                     <div className="flex justify-end mt-4 gap-3">
                       <button
-                        className="px-4 py-2 bg-gray-300 rounded"
+                        className="px-2 py-1 lg:px-4 lg:py-2 text-sm bg-gray-300 rounded"
                         onClick={() =>
                           setCollapseState((prev) => ({
                             ...prev,
@@ -186,7 +195,7 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
                         ยกเลิก
                       </button>
                       <button
-                        className="px-4 py-2 bg-yellow-500 text-white rounded"
+                        className="px-2 py-1 lg:px-4 lg:py-2 text-sm bg-yellow-500 text-white rounded"
                         onClick={() => handleUpdateContact(contact.id)}
                       >
                         แก้ไข
@@ -201,7 +210,9 @@ export default function ManageContacts({ contacts }: { contacts: contacts[] }) {
       </div>
 
       <div className="flex flex-col p-6 bg-warning bg-opacity-10 rounded-lg shadow-md">
-        <p className="text-xl font-bold mb-4">เพิ่มข้อมูลติดต่อใหม่</p>
+        <p className="text-md lg:text-xl font-bold mb-4">
+          เพิ่มข้อมูลติดต่อใหม่
+        </p>
         <input
           type="text"
           value={name || ""}

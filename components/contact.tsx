@@ -23,7 +23,7 @@ export default function Contact() {
           <div key={index} className="grid grid-cols-3">
             <p className="col-span-1 font-bold">{contact.name}</p>
             <p className="col-span-1">{contact.phone}</p>
-            <p className="col-span-1">{contact.other}</p>
+            <p className="col-span-1 truncate">{contact.other}</p>
           </div>
         ))}
       </div>

@@ -113,15 +113,19 @@ export default function ManageSocialMedia({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-10/12">
       <div className="rounded-lg shadow-md p-4">
-        <p className="text-xl font-bold mb-4">Social media ที่มีอยู่</p>
+        <p className="text-md lg:text-xl font-bold mb-4">
+          Social media ที่มีอยู่
+        </p>
         <div className="grid grid-cols-1  gap-4">
           {socialMediaList.map((socialMedia) => (
             <div
               key={socialMedia.id}
               className="p-4 border rounded-lg bg-white w-full relative flex flex-col justify-between"
             >
-              <h3 className="text-lg font-semibold">{socialMedia.platform}</h3>
-              <p className="overflow-auto">{socialMedia.url}</p>
+              <h3 className="text-lg font-semibold text-md">
+                {socialMedia.platform}
+              </h3>
+              <p className="overflow-auto text-sm">{socialMedia.url}</p>
               <div className="grid grid-cols-2 gap-2 py-1">
                 <button
                   className="col-span-1 btn btn-error btn-sm btn-outline"
@@ -192,7 +196,9 @@ export default function ManageSocialMedia({
       </div>
 
       <div className="flex flex-col p-6 bg-warning bg-opacity-10 rounded-lg shadow-md">
-        <p className="text-xl font-bold mb-4">เพิ่ม Social Media ใหม่</p>
+        <p className="text-md lg:text-xl font-bold mb-4">
+          เพิ่ม Social Media ใหม่
+        </p>
         <input
           type="text"
           value={platform || ""}

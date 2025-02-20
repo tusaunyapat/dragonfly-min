@@ -11,7 +11,7 @@ export default function ProductDetail({
   console.log(product);
   console.log("detail", categoriesMap);
   return (
-    <div className="flex flex-col md:flex-row w-full gap-8 max-h-[60vh] overflow-auto ">
+    <div className="flex flex-col md:flex-row w-full gap-8 max-h-[60vh] overflow-auto py-2">
       {/* Left Side - Image Carousel */}
       <div className="flex flex-col w-full">
         <div className="carousel h-auto">
@@ -49,17 +49,19 @@ export default function ProductDetail({
       {/* Right Side - Product Info */}
       <div className="flex flex-col w-full gap-1 p-2">
         <div className="flex flex-row justify-between">
-          <p className="text-2xl font-bold">{product.pname}</p>
-          <p className="text-2xl font-bold text-warning">{product.price} ฿</p>
+          <p className="text-lg lg:text-2xl font-bold">{product.pname}</p>
+          <p className="text-lg lg:text-2xl font-bold text-warning">
+            {product.price} ฿
+          </p>
         </div>
         <div className="flex flex-row gap-4">
-          <p className="text-md text-gray-500">Brand: </p>
-          <p className="text-md text-gray-500">{product.brand}</p>
+          <p className="text-sm lg:text-md text-gray-500">Brand: </p>
+          <p className="text-sm lg:text-md text-gray-500">{product.brand}</p>
         </div>
 
         {/* Categories */}
         <div className="flex flex-row gap-4">
-          <p className="text-md text-gray-500">Categories: </p>
+          <p className="text-sm lg:text-md text-gray-500">Categories: </p>
           <div className="flex flex-row">
             {product.categories.every(
               (cate) => !categoriesMap[Number(cate)]
@@ -81,9 +83,9 @@ export default function ProductDetail({
         </div>
 
         {/* Product Description */}
-        <p className="text-md">{product.description}</p>
+        <p className="text-xs lg:text-md">{product.description}</p>
         <br />
-        <p className="text-md">{product.detail}</p>
+        <p className="text-xs lg:text-md">{product.detail}</p>
       </div>
     </div>
   );
