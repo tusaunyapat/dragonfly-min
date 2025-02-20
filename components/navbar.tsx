@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
-import AuthButton from "./header-auth";
 import { User } from "@supabase/supabase-js";
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
