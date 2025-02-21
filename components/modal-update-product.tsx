@@ -222,9 +222,7 @@ export default function UpdateProductForm({
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="block font-bold text-md">
-          รูปภาพสินค้้าที่มีอยู่
-        </label>
+        <label className="block font-bold text-md">รูปภาพสินค้าที่มีอยู่</label>
         <div className="flex flex-wrap gap-2">
           {currentImages.map((image, index) => (
             <div key={index} className="relative w-32">
