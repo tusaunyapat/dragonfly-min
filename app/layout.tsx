@@ -47,10 +47,10 @@ export default function RootLayout({
         >
           <main className="min-h-screen flex flex-col items-center gap-4 ">
             <div className="flex-1 w-full flex flex-col items-center">
-              <div className="flex-1 flex  justify-center w-full flex-col items-center z-99">
+              <div className="flex-1 flex  justify-start w-full flex-col items-start z-99">
                 {/* <HeaderAuth /> */}
+                <Navbar />
                 <div className="flex-1 w-full flex flex-col items-center">
-                  <Navbar />
                   <div className="flex flex-col justify-center gap-20 w-full">
                     {children}
                   </div>

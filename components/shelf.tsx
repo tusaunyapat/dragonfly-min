@@ -286,17 +286,23 @@ export default function Shelf() {
       </div>
 
       {/* Product List */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <div className="flex flex-col">
         {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <ProductCard
-              product={product}
-              key={product.id || product.pname} // Use a unique key
-              isAdmin={hasAuthenticated}
-              categoriesMap={categoriesMap}
-              onUpdate={fetchProducts}
-            />
-          ))
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                product={product}
+                key={product.id || product.pname} // Use a unique key
+                isAdmin={hasAuthenticated}
+                categoriesMap={categoriesMap}
+                onUpdate={fetchProducts}
+              />
+            ))}
+            <p className="col-span-1 lg:col-span-2 text-md text-slate-500 text-center py-4">
+              {" "}
+              แแสดงสินค้าทั้งหมดแล้ว
+            </p>
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center text-gray-500 mt-8">
             <FaBoxOpen className="text-4xl mb-2" />

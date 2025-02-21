@@ -114,7 +114,7 @@ export default function UpdateProductForm({
   };
 
   return (
-    <div className="space-y-4 p-4 h-[70vh]">
+    <div className="space-y-4 p-0 md:p-4 h-[70vh]">
       <div className="flex flex-col gap-2">
         <label htmlFor="pname" className="block font-bold text-md">
           ชื่อสินค้า
@@ -273,7 +273,7 @@ export default function UpdateProductForm({
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 pb-8">
         <button
           onClick={() => closeModal()}
           type="button"

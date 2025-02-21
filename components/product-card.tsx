@@ -122,7 +122,7 @@ export default function ProductCard({
           </div>
 
           {/* Admin Buttons */}
-          <div className="flex flex-row gap-2 justify-center md:justify-end w-full ">
+          <div className="flex flex-row gap-2 justify-end w-full ">
             <div className="flex gap-2 mt-4">
               <button
                 className="btn btn-outline btn-warning btn-sm "
